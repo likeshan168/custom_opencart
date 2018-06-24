@@ -9,7 +9,7 @@
     <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
     <SaveServerSettingsInUserFile>false</SaveServerSettingsInUserFile>
     <Runtime>PHP</Runtime>
-    <RuntimeVersion>7.2</RuntimeVersion>
+    <RuntimeVersion>7.1</RuntimeVersion>
     <EnvName>PHPDev</EnvName>
     <PHPDevHostName>www.myopencart.com</PHPDevHostName>
     <PHPDevAutoPort>false</PHPDevAutoPort>
@@ -4497,6 +4497,7 @@
     <Compile Include="system\framework.php" />
     <Compile Include="system\modification.xml" />
     <Compile Include="system\startup.php" />
+    <Compile Include="test.php" />
     <Compile Include="vqmod\install\index.php" />
     <Compile Include="vqmod\vqcache\vq2-catalog_controller_event_theme.php" />
     <Compile Include="vqmod\vqcache\vq2-system_engine_action.php" />
