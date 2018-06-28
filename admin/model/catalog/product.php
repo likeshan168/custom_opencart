@@ -1,5 +1,6 @@
 <?php
-
+use GuzzleHttp\Client;
+use Guzzle\Http\Exception\RequestException;
 class ModelCatalogProduct extends Model
 {
     public function addProduct($data)
@@ -109,9 +110,13 @@ class ModelCatalogProduct extends Model
 
 
         $this->cache->delete('product');
+		//同步w2e中商品上线的状态并填写分配的库存数的
+		$this->updateOnlineStatus((string)$data['sku'],(int)$data['status']==1?true:false,(int)$data['quantity']);
 
         return $product_id;
     }
+
+
 
     public function editProduct($product_id, $data)
     {
@@ -242,6 +247,8 @@ class ModelCatalogProduct extends Model
         }
 
         $this->cache->delete('product');
+		//更新w2e中的商品状态和分配库存的数量
+		$this->updateOnlineStatus((string)$data['sku'],(int)$data['status']==1?true:false,(int)$data['quantity']);
     }
 
     public function copyProduct($product_id)
@@ -287,6 +294,14 @@ class ModelCatalogProduct extends Model
 
     public function deleteProduct($product_id)
     {
+	    $product =$this->db->query("select * from ".DB_PREFIX."product where product_id='".(int)$product_id."'");
+		if ($product->row)
+		{
+			//更新w2e中的商品状态和分配库存的数量
+			$this->updateOnlineStatus((string)$product->row['sku'],false,0);
+		}
+
+
         $this->db->query("DELETE FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "product_attribute WHERE product_id = '" . (int)$product_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "product_description WHERE product_id = '" . (int)$product_id . "'");
@@ -309,6 +324,7 @@ class ModelCatalogProduct extends Model
         $this->db->query("DELETE FROM " . DB_PREFIX . "coupon_product WHERE product_id = '" . (int)$product_id . "'");
 
         $this->cache->delete('product');
+
     }
 
     public function getProduct($product_id)
@@ -683,15 +699,28 @@ class ModelCatalogProduct extends Model
     public function editProductStatus($product_id, $status)
     {
         $this->db->query("UPDATE " . DB_PREFIX . "product SET status = '" . (int)$status . "' WHERE product_id = '" . (int)$product_id . "'");
+		$query = $this->db->query("select * from ".DB_PREFIX ."product where product_id ='".(int)$product_id."'");
+		if ($query->row)
+		{
+			if ($status)
+			{
+				$this->updateOnlineStatus((string)$query->row['sku'], true,(int)$query->row["quantity"]);
+			}
+			else
+			{
+				$this->updateOnlineStatus((string)$query->row['sku'], false,0);
+			}
+		}
+
     }
 
     public function editProductsStatus($data)
     {
         $query = '';
         $ids = array();
-//        for ($i = 0; $i < count($data); $i++) {
-//            $query = $query . "UPDATE " . DB_PREFIX . "product SET status = " . (int)$data[$i]['state'] . " WHERE product_id = " . (int)$data[$i]['product_id'] . ";";
-//        }
+		//        for ($i = 0; $i < count($data); $i++) {
+		//            $query = $query . "UPDATE " . DB_PREFIX . "product SET status = " . (int)$data[$i]['state'] . " WHERE product_id = " . (int)$data[$i]['product_id'] . ";";
+		//        }
         $query = $query . "UPDATE " . DB_PREFIX . "product set status = case product_id ";
         for ($i = 0; $i < count($data); $i++) {
             $id = (int)$data[$i]['product_id'];
@@ -703,5 +732,104 @@ class ModelCatalogProduct extends Model
         if (strlen($query) > 0) {
             $this->db->query($query);
         }
+
+		$result = $this->db->query("select * from ".DB_PREFIX."product where product_id in ($where)");
+		if ($result->rows)
+		{
+			$requestArr = array();
+			for($i=0;$i<$result->num_rows;$i++){
+				$status =(int)$result->rows[$i]["status"];
+				if ($status==1)
+				{
+					$requestArr[$i]=array("ProductNo"=>(string)$result->rows[$i]["sku"],"Online"=>true,"OnlineQuantity"=>(int)$result->rows[$i]["quantity"]);
+				}
+				else
+				{
+					$requestArr[$i]=array("ProductNo"=>(string)$result->rows[$i]["sku"],"Online"=>false,"OnlineQuantity"=>0);
+				}
+			}
+
+			$this->batchUpdateOnlineStatus($requestArr);
+		}
+
     }
+
+	public function checkProductBySku($sku){
+		$query = "select * from ".DB_PREFIX."product where sku='".$sku."'";
+		$result = $this->db->query($query);
+		return $result->num_rows?true: false;
+	}
+
+	/**
+	 * 更新w2e中商品上线的状态和分配的库存数
+	 * @param mixed $productNo
+	 * @param mixed $online
+	 * @param mixed $onlineQuantity
+	 * @return boolean
+	 */
+	private function updateOnlineStatus($productNo, $online, $onlineQuantity)
+	{
+		try
+		{
+			$client = new Client();
+			$client->setDefaultOption('headers', array(
+				'Accept-Encoding' => 'gzip,deflate',
+				'Content-Type' => 'application/json'
+			));
+			$api=$this->config->get("W2E_PRODUCT");
+			$response = $client->post($api."UpdateOnlineStatus",[
+				 'json'=>['ProductNo'=>$productNo,'Online'=>$online, 'OnlineQuantity'=>$onlineQuantity]
+				]);
+			$body = $response->json();
+			//echo $body["Code"], $body["Message"], $body["IsSuccess"] ;
+			return $body["Error"]? false: true;
+		}
+		catch (RequestException $exception)
+		{
+			//echo $exception;
+			return false;
+		}
+		catch(Exception $e)
+		{
+			//echo $e;
+			return false;
+		}
+	}
+
+	/**
+	 * 批量更新w2e中商品上线的状态和分配的库存数
+	 * @param mixed $productNo
+	 * @param mixed $online
+	 * @param mixed $onlineQuantity
+	 * @return boolean
+	 */
+	private function batchUpdateOnlineStatus($requestArr)
+	{
+		try
+		{
+			$client = new Client();
+			$client->setDefaultOption('headers', array(
+				'Accept-Encoding' => 'gzip,deflate',
+				'Content-Type' => 'application/json'
+			));
+			$api=$this->config->get("W2E_PRODUCT");
+			$response = $client->post($api."BatchUpdateOnlineStatus",[
+				 'json'=>$requestArr
+				]);
+			$body = $response->json();
+			//echo $body["Code"], $body["Message"], $body["IsSuccess"] ;
+			return $body["Error"]? false: true;
+		}
+		catch (RequestException $exception)
+		{
+			//echo $exception;
+			return false;
+		}
+		catch(Exception $e)
+		{
+			//echo $e;
+			return false;
+		}
+	}
+
 }

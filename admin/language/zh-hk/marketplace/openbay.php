@@ -59,7 +59,7 @@ $_['text_check_server']                 = '檢查服務器要求配置中';
 $_['text_version_ok']                   = '軟件已是最新版本，版本號為：';
 $_['text_remove_files']                 = '正在移除不需要的文件';
 $_['text_confirm_backup']               = '請先進行備份後再繼續';
-$_['text_software_update']              = 'OpenBay Pro 程序升級;
+$_['text_software_update']              = 'OpenBay Pro 程序升級';
 $_['text_patch_option']                 = '手動升級';
 
 // Column

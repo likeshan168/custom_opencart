@@ -114,6 +114,8 @@ $_['button_backup']                 = '备份';
 $_['button_developer']              = '开发者设备';
 //自定义的翻译
 $_['button_shelf']                  = '上架/下架';
+$_['button_batch_add']              = '批量添加';
+$_['button_select_product']         = '选择商品';
 
 // Tab
 $_['tab_affiliate']                 = '推广联盟';

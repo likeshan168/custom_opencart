@@ -1,5 +1,6 @@
 <?php
-
+use GuzzleHttp\Client;
+use Guzzle\Http\Exception\RequestException;
 class ControllerCatalogProduct extends Controller
 {
     private $error = array();
@@ -23,7 +24,8 @@ class ControllerCatalogProduct extends Controller
 
         $this->load->model('catalog/product');
 
-        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm(true)) {
+
             $this->model_catalog_product->addProduct($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -70,14 +72,13 @@ class ControllerCatalogProduct extends Controller
 
     public function edit()
     {
-        var_dump("hello world");
         $this->load->language('catalog/product');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
         $this->load->model('catalog/product');
 
-        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm(false)) {
             $this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -178,8 +179,8 @@ class ControllerCatalogProduct extends Controller
     }
 
     /**
-     * 上架下架
-     */
+	 * 上架下架
+	 */
     public function shelf()
     {
         $json = array();
@@ -192,9 +193,9 @@ class ControllerCatalogProduct extends Controller
             return;
         }
         //获取post中的数
-//        $this->json_output($this->request->post);
-//        var_dump($this->request->post);
-//        var_dump(file_get_contents("php://input"));
+		//        $this->json_output($this->request->post);
+		//        var_dump($this->request->post);
+		//        var_dump(file_get_contents("php://input"));
         $d = $this->request->post['data'];
         $this->load->model('catalog/product');
         $this->model_catalog_product->editProductsStatus($d);
@@ -263,6 +264,8 @@ class ControllerCatalogProduct extends Controller
     protected function getList()
     {
         $this->document->addScript('view/javascript/jquery/switch/bootstrap-switch.min.js');
+		//add the jsrender lib
+		$this->document->addScript('view/javascript/jsrender/jsrender.min.js');
 
         if (isset($this->request->get['filter_name'])) {
             $filter_name = $this->request->get['filter_name'];
@@ -1234,11 +1237,20 @@ class ControllerCatalogProduct extends Controller
         $this->response->setOutput($this->load->view('catalog/product_form', $data));
     }
 
-    protected function validateForm()
+    protected function validateForm($is_new)
     {
         if (!$this->user->hasPermission('modify', 'catalog/product')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
+
+		//看sku是否重复添加了
+		if ($is_new)
+		{
+			if ($this->model_catalog_product->checkProductBySku($this->request->post["sku"]))
+			{
+				$this->error['warning'] = $this->language->get('error_sku');
+			}
+		}
 
         foreach ($this->request->post['product_description'] as $language_id => $value) {
             if ((utf8_strlen($value['name']) < 1) || (utf8_strlen($value['name']) > 255)) {
@@ -1435,4 +1447,39 @@ class ControllerCatalogProduct extends Controller
     {
         return $this->user->hasPermission('modify', 'catalog/product');
     }
+
+	//获取w2e中的商品列表
+	public function getW2eProducts()
+	{
+		try
+		{
+			$client = new Client();
+			$client->setDefaultOption('headers', array(
+				'Accept-Encoding' => 'gzip,deflate',
+				'Content-Type' => 'application/json'
+			));
+			$api=$this->config->get("W2E_PRODUCT");
+			$response = $client->get($api);
+			$body = $response->json();
+			$data=array(
+				"is_success"=> true,
+				"data"=>$body
+				);
+			$this->json_output($data);
+		}
+		catch (RequestException $exception)
+		{
+			$data=array(
+				"is_success"=> false
+				);
+			$this->json_output($data);
+		}
+		catch(Exception $e)
+		{
+			$data=array(
+				"is_success"=> false
+				);
+			$this->json_output($data);
+		}
+	}
 }

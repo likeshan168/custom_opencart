@@ -105,6 +105,10 @@ $_['button_backup']                 = 'Backup';
 $_['button_developer']              = 'Developer Setting';
 //自定义的翻译
 $_['button_shelf']                  = 'OnShelf/OffShelf';
+$_['button_batch_add']              = 'Batch Add';
+$_['button_select_product']         = 'Select Product';
+
+
 // Tab
 $_['tab_affiliate']                 = 'Affiliate';
 $_['tab_address']                   = 'Address';

@@ -1,5 +1,31 @@
 {
-    "require": {
-        "twig/twig": "^2.4"
-    }
+  "require": {
+    "braintree/braintree_php": "*",
+    "cardinity/cardinity-sdk-php": "*",
+    "divido/divido-php": "*",
+    "filp/whoops": "*",
+    "geoip2/geoip2": "*",
+    "illuminate/support": "*",
+    "klarna/kco_rest": "*",
+    "leafo/scssphp": "*",
+    "maximebf/debugbar": "*",
+    "doctrine/inflector": "*",
+    "guzzlehttp/guzzle": "*",
+    "guzzlehttp/log-subscriber": "*",
+    "guzzlehttp/oauth-subscriber": "*",
+    "guzzlehttp/ringphp": "*",
+    "guzzlehttp/streams": "*",
+    "maxmind/web-service-common": "*",
+    "maxmind-db/reader": "*",
+    "paragonie/random_compat": "*",
+    "psr/log": "*",
+    "react/promise": "*",
+    "symfony/polyfill-mbstring": "*",
+    "symfony/translation": "*",
+    "symfony/validator": "*",
+    "symfony/var-dumper": "*",
+    "zoujingli/wechat-php-sdk": "*",
+    "twig/twig": "^2.4",
+    "nategood/httpful": "*"
+  }
 }

@@ -1,5 +1,8 @@
 <?php
 namespace Cart;
+//require 'vendor/autoload.php';
+use GuzzleHttp\Client;
+use Guzzle\Http\Exception\RequestException;
 class User {
 	private $user_id;
 	private $user_group_id;
@@ -10,6 +13,9 @@ class User {
 		$this->db = $registry->get('db');
 		$this->request = $registry->get('request');
 		$this->session = $registry->get('session');
+
+		//Ìí¼ÓconfigÒÀÀµ
+		$this->config = $registry->get('config');
 
 		if (isset($this->session->data['user_id'])) {
 			$user_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "user WHERE user_id = '" . (int)$this->session->data['user_id'] . "' AND status = '1'");
@@ -38,6 +44,10 @@ class User {
 
 	public function login($username, $password) {
 		$user_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "user WHERE username = '" . $this->db->escape($username) . "' AND status = '1'");
+		//if (!$this->w2e_login($username,$password))
+		//{
+		//    return false;
+		//}
 
 		if ($user_query->num_rows) {
 			if (password_verify($password, $user_query->row['password'])) {
@@ -49,13 +59,13 @@ class User {
 			} else {
 				return false;
 			}
-			
+
 			$this->session->data['user_id'] = $user_query->row['user_id'];
 
 			$this->user_id = $user_query->row['user_id'];
 			$this->username = $user_query->row['username'];
 			$this->user_group_id = $user_query->row['user_group_id'];
-			
+
 			if (isset($new_password_hashed)) {
 				$this->db->query("UPDATE " . DB_PREFIX . "user SET salt = '', password = '" . $this->db->escape($new_password_hashed) . "' WHERE user_id = '" . (int)$this->user_id . "'");
 			}
@@ -72,6 +82,35 @@ class User {
 
 			return true;
 		} else {
+			return false;
+		}
+	}
+
+	private function w2e_login($username, $password)
+	{
+		try
+		{
+			$client = new Client();
+			$client->setDefaultOption('headers', array(
+				'Accept-Encoding' => 'gzip,deflate',
+				'Content-Type' => 'application/json'
+			));
+			$api=$this->config->get("W2E_LOGIN");
+			$response = $client->post($api,[
+				 'json'=>['UserName'=>$username,'Password'=>$password]
+				]);
+			$body = $response->json();
+			//echo $body["Code"], $body["Message"], $body["IsSuccess"] ;
+			return $body["Error"]? false: true;
+		}
+		catch (RequestException $exception)
+		{
+			echo $exception;
+			return false;
+		}
+		catch(Exception $e)
+		{
+			echo $e;
 			return false;
 		}
 	}
