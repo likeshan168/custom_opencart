@@ -361,6 +361,7 @@
     });
 
     $('input[name="product-status-toggle"]').on('switchChange.bootstrapSwitch', function (event, state) {
+        var ii = layer.load();
         var switcher = $(this);
         $.ajax({
             url: 'index.php?route=catalog/product/status&user_token={{ user_token }}&product_id=' + $(this).data('id') + '&status=' + (state ? 1 : 0),
@@ -369,12 +370,14 @@
                 switcher.bootstrapSwitch('toggleReadonly', true);
             },
             success: function (json) {
+                layer.close(ii);
                 switcher.bootstrapSwitch('toggleReadonly', false);
                 if (json['status'] !== 1) {
                     switcher.bootstrapSwitch('state', !state, true);
                 }
             },
             error: function () {
+                layer.close(ii);
                 switcher.bootstrapSwitch('toggleReadonly', false);
                 switcher.bootstrapSwitch('state', !state, true);
             }
