@@ -188,6 +188,7 @@
     <Compile Include="admin\controller\extension\payment\pp_pro.php" />
     <Compile Include="admin\controller\extension\payment\pp_pro_iframe.php" />
     <Compile Include="admin\controller\extension\payment\pp_standard.php" />
+    <Compile Include="admin\controller\extension\payment\skyfaith_payment_case1.php" />
     <Compile Include="admin\controller\extension\payment\wechat_pay.php" />
     <Compile Include="admin\controller\extension\report\customer_activity.php" />
     <Compile Include="admin\controller\extension\report\customer_order.php" />
@@ -392,6 +393,7 @@
     <Compile Include="admin\language\en-gb\extension\payment\pp_pro.php" />
     <Compile Include="admin\language\en-gb\extension\payment\pp_pro_iframe.php" />
     <Compile Include="admin\language\en-gb\extension\payment\pp_standard.php" />
+    <Compile Include="admin\language\en-gb\extension\payment\skyfaith_payment_case1.php" />
     <Compile Include="admin\language\en-gb\extension\payment\wechat_pay.php" />
     <Compile Include="admin\language\en-gb\extension\report\customer_activity.php" />
     <Compile Include="admin\language\en-gb\extension\report\customer_order.php" />
@@ -640,6 +642,7 @@
     <Compile Include="admin\language\zh-cn\extension\payment\pp_pro.php" />
     <Compile Include="admin\language\zh-cn\extension\payment\pp_pro_iframe.php" />
     <Compile Include="admin\language\zh-cn\extension\payment\pp_standard.php" />
+    <Compile Include="admin\language\zh-cn\extension\payment\skyfaith_payment_case1.php" />
     <Compile Include="admin\language\zh-cn\extension\payment\wechat_pay.php" />
     <Compile Include="admin\language\zh-cn\extension\report\customer_activity.php" />
     <Compile Include="admin\language\zh-cn\extension\report\customer_order.php" />
@@ -3399,6 +3402,7 @@
     <Compile Include="catalog\controller\extension\payment\pp_pro.php" />
     <Compile Include="catalog\controller\extension\payment\pp_pro_iframe.php" />
     <Compile Include="catalog\controller\extension\payment\pp_standard.php" />
+    <Compile Include="catalog\controller\extension\payment\skyfaith_payment_case1.php" />
     <Compile Include="catalog\controller\extension\payment\wechat_pay.php" />
     <Compile Include="catalog\controller\extension\recurring\pp_express.php" />
     <Compile Include="catalog\controller\extension\recurring\squareup.php" />
@@ -3511,6 +3515,7 @@
     <Compile Include="catalog\language\en-gb\extension\payment\pp_pro.php" />
     <Compile Include="catalog\language\en-gb\extension\payment\pp_pro_iframe.php" />
     <Compile Include="catalog\language\en-gb\extension\payment\pp_standard.php" />
+    <Compile Include="catalog\language\en-gb\extension\payment\skyfaith_payment_case1.php" />
     <Compile Include="catalog\language\en-gb\extension\payment\wechat_pay.php" />
     <Compile Include="catalog\language\en-gb\extension\recurring\pp_express.php" />
     <Compile Include="catalog\language\en-gb\extension\recurring\squareup.php" />
@@ -3648,6 +3653,7 @@
     <Compile Include="catalog\language\zh-cn\extension\payment\pp_pro.php" />
     <Compile Include="catalog\language\zh-cn\extension\payment\pp_pro_iframe.php" />
     <Compile Include="catalog\language\zh-cn\extension\payment\pp_standard.php" />
+    <Compile Include="catalog\language\zh-cn\extension\payment\skyfaith_payment_case1.php" />
     <Compile Include="catalog\language\zh-cn\extension\payment\wechat_pay.php" />
     <Compile Include="catalog\language\zh-cn\extension\recurring\pp_express.php" />
     <Compile Include="catalog\language\zh-cn\extension\recurring\squareup.php" />
@@ -3862,6 +3868,7 @@
     <Compile Include="catalog\model\extension\payment\pp_pro.php" />
     <Compile Include="catalog\model\extension\payment\pp_pro_iframe.php" />
     <Compile Include="catalog\model\extension\payment\pp_standard.php" />
+    <Compile Include="catalog\model\extension\payment\skyfaith_payment_case1.php" />
     <Compile Include="catalog\model\extension\payment\wechat_pay.php" />
     <Compile Include="catalog\model\extension\shipping\auspost.php" />
     <Compile Include="catalog\model\extension\shipping\citylink.php" />
@@ -4413,6 +4420,7 @@
     <Compile Include="system\config\default.php" />
     <Compile Include="system\config\index.html" />
     <Compile Include="system\config\install.php" />
+    <Compile Include="system\config\skyfaith_payment_case1.php" />
     <Compile Include="system\engine\action.php" />
     <Compile Include="system\engine\autoloader.php" />
     <Compile Include="system\engine\controller.php" />
@@ -4979,6 +4987,12 @@
     <Folder Include="admin\view\javascript\jquery\magnific" />
     <Folder Include="admin\view\javascript\jquery\switch" />
     <Folder Include="admin\view\javascript\jquery" />
+    <Folder Include="admin\view\javascript\jsrender\" />
+    <Folder Include="admin\view\javascript\layer-v3.1.1\" />
+    <Folder Include="admin\view\javascript\layer-v3.1.1\mobile\" />
+    <Folder Include="admin\view\javascript\layer-v3.1.1\mobile\need\" />
+    <Folder Include="admin\view\javascript\layer-v3.1.1\theme\" />
+    <Folder Include="admin\view\javascript\layer-v3.1.1\theme\default\" />
     <Folder Include="admin\view\javascript\summernote\font" />
     <Folder Include="admin\view\javascript\summernote\lang" />
     <Folder Include="admin\view\javascript\summernote\plugin\hello" />
@@ -5298,6 +5312,18 @@
     <Folder Include="vqmod" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\view\javascript\jsrender\jsrender.min.js" />
+    <Content Include="admin\view\javascript\layer-v3.1.1\layer.js" />
+    <Content Include="admin\view\javascript\layer-v3.1.1\mobile\layer.js" />
+    <Content Include="admin\view\javascript\layer-v3.1.1\mobile\need\layer.css" />
+    <Content Include="admin\view\javascript\layer-v3.1.1\theme\default\icon-ext.png" />
+    <Content Include="admin\view\javascript\layer-v3.1.1\theme\default\icon.png" />
+    <Content Include="admin\view\javascript\layer-v3.1.1\theme\default\layer.css" />
+    <Content Include="admin\view\javascript\layer-v3.1.1\theme\default\loading-0.gif" />
+    <Content Include="admin\view\javascript\layer-v3.1.1\theme\default\loading-1.gif" />
+    <Content Include="admin\view\javascript\layer-v3.1.1\theme\default\loading-2.gif" />
+    <Content Include="admin\view\template\extension\payment\skyfaith_payment_case1.twig" />
+    <Content Include="catalog\view\theme\default\template\extension\payment\skyfaith_payment_case1.twig" />
     <Content Include="composer.json" />
   </ItemGroup>
 </Project>
