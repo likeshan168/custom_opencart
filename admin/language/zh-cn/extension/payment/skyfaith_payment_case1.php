@@ -11,9 +11,12 @@ $_['text_edit']          = '编辑7000以内免付';
 // Entry
 $_['entry_total']        = '总计';
 $_['entry_order_status'] = '订单状态';
+$_['entry_customer_group']     = '客户等级';
 $_['entry_geo_zone']     = '区域群组';
 $_['entry_status']       = '状态';
 $_['entry_sort_order']   = '排序';
+$_['text_all_customer_group']   = '所有客户';
+
 
 // Help
 $_['help_total']         = '结账订单金额必须小于此金额才有效。';

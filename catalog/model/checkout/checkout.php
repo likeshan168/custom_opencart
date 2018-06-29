@@ -295,9 +295,21 @@ class ModelCheckoutCheckout extends Model {
 		$this->load->model('setting/extension');
 		$results = $this->model_setting_extension->getExtensions('payment');
 		$total = $this->getTotal();
+		$customer_group_id = 0;
+
+		if (isset($this->session->data['customer_id'])) {
+			$customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE customer_id = '" . (int)$this->session->data['customer_id'] . "' AND status = '1'");
+			if ($customer_query->num_rows) {
+				$customer_group_id = $customer_query->row['customer_group_id'];
+			}
+		}
 
 		foreach ($results as $result) {
 			if (!$this->config->get('payment_' . $result['code'] . '_status')) {
+				continue;
+			}
+
+			if ($this->config->get('payment_' . $result['code'] . '_customer_group_id')!=$customer_group_id) {
 				continue;
 			}
 

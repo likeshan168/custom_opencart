@@ -70,10 +70,20 @@ class ControllerExtensionPaymentSkyfaithPaymentCase1 extends Controller {
 
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
-		if (isset($this->request->post['payment_skyfaith_payment_case1_status'])) {
-			$data['payment_skyfaith_payment_case1_status'] = $this->request->post['payment_skyfaith_payment_case1_status'];
+		if (isset($this->request->post['payment_skyfaith_payment_case1_geo_zone_id'])) {
+			$data['payment_skyfaith_payment_case1_geo_zone_id'] = $this->request->post['payment_skyfaith_payment_case1_geo_zone_id'];
 		} else {
-			$data['payment_skyfaith_payment_case1_status'] = $this->config->get('payment_skyfaith_payment_case1_status');
+			$data['payment_skyfaith_payment_case1_geo_zone_id'] = $this->config->get('payment_skyfaith_payment_case1_geo_zone_id');
+		}
+
+		$this->load->model('customer/customer_group');
+
+		$data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
+
+		if (isset($this->request->post['payment_skyfaith_payment_case1_customer_group_id'])) {
+			$data['payment_skyfaith_payment_case1_customer_group_id'] = $this->request->post['payment_skyfaith_payment_case1_customer_group_id'];
+		} else {
+			$data['payment_skyfaith_payment_case1_customer_group_id'] = $this->config->get('payment_skyfaith_payment_case1_customer_group_id');
 		}
 
 		if (isset($this->request->post['payment_skyfaith_payment_case1_sort_order'])) {
