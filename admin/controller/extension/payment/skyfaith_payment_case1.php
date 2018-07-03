@@ -92,6 +92,12 @@ class ControllerExtensionPaymentSkyfaithPaymentCase1 extends Controller {
 			$data['payment_skyfaith_payment_case1_sort_order'] = $this->config->get('payment_skyfaith_payment_case1_sort_order');
 		}
 
+		if (isset($this->request->post['payment_skyfaith_payment_case1_status'])) {
+			$data['payment_skyfaith_payment_case1_status'] = $this->request->post['payment_skyfaith_payment_case1_status'];
+		} else {
+			$data['payment_skyfaith_payment_case1_status'] = $this->config->get('payment_skyfaith_payment_case1_status');
+		}
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');

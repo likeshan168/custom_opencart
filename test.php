@@ -50,26 +50,73 @@ function call_api($method, $url, $data = false){
 use GuzzleHttp\Client;
 use Guzzle\Http\Exception\RequestException;
 
-try
-{
-	$client = new Client();
-	$client->setDefaultOption('headers', array(
-'Accept-Encoding' => 'gzip,deflate',
-'Content-Type' => 'application/json'
-	));
-	$response = $client->post('http://localhost:5000/api/account/login',[
-		 'json'=>['UserName'=>'admin','Password'=>'123']
-		]);
-	$body = $response->json();
-	echo $body["Code"], $body["Message"], $body["IsSuccess"] ;
-}
-catch (RequestException $exception)
-{
-	echo $exception;
-}
-catch(Exception $e)
-{
-	echo $e;
-}
+//try
+//{
+//    $client = new Client();
+//    $client->setDefaultOption('headers', array(
+//'Accept-Encoding' => 'gzip,deflate',
+//'Content-Type' => 'application/json'
+//    ));
+//    $response = $client->post('http://localhost:5000/api/account/login',[
+//         'json'=>['UserName'=>'admin','Password'=>'123']
+//        ]);
+//    $body = $response->json();
+//    echo $body["Code"], $body["Message"], $body["IsSuccess"] ;
+//}
+//catch (RequestException $exception)
+//{
+//    echo $exception;
+//}
+//catch(Exception $e)
+//{
+//    echo $e;
+//}
+
+//try
+//{
+//    $client = new Client();
+//    $client->setDefaultOption('headers', array(
+//'Accept-Encoding' => 'gzip,deflate',
+//'Content-Type' => 'application/json'
+//    ));
+//    $response = $client->post('http://localhost:5000/api/account/login',[
+//         'json'=>['UserName'=>'admin','Password'=>'123']
+//        ]);
+//    $body = $response->json();
+//    echo $body["Code"], $body["Message"], $body["IsSuccess"] ;
+//}
+//catch (RequestException $exception)
+//{
+//    echo $exception;
+//}
+//catch(Exception $e)
+//{
+//    echo $e;
+//}
+
+//try
+//{
+//    $client = new Client();
+//    $client->setDefaultOption('headers', array(
+//        'Accept-Encoding' => 'gzip,deflate',
+//        'Content-Type' => 'application/json'
+//    ));
+//    //$params = array('username=Default',"key=8bade97dae85d776b71b1b9baa19cf8b42f16189c2511fd39296327eff4ae745aac651afd19b8687386528249e56e8b7cce10fac509f5a4705516c84dac49c9cdf81592bd79a1068ba06608af7ef2e374b681af0e23e24fcd32d8fd73f2b89281d686c5d25d9d26699d0f0d521980f1625ac19ef21f2af8e99e60297957079e4");
+//    //$parameters = implode("&", $params);
+//    $response = $client->post('http://www.myopencart.com/index.php?route=api/login', ['body'=>[
+//            'username'=>'Default',
+//            'key'=>'8bade97dae85d776b71b1b9baa19cf8b42f16189c2511fd39296327eff4ae745aac651afd19b8687386528249e56e8b7cce10fac509f5a4705516c84dac49c9cdf81592bd79a1068ba06608af7ef2e374b681af0e23e24fcd32d8fd73f2b89281d686c5d25d9d26699d0f0d521980f1625ac19ef21f2af8e99e60297957079e4'
+//        ]]);
+//    $body = $response->json();
+//    echo $body;
+//}
+//catch (RequestException $exception)
+//{
+//    echo $exception;
+//}
+//catch(Exception $e)
+//{
+//    echo $e;
+//}
 
 ?>

@@ -1,0 +1,4 @@
+/*.cache
+/vqcache/*
+/logs
+!/vqcache/index.html

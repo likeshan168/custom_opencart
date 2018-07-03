@@ -7,7 +7,7 @@ class ControllerExtensionPaymentSkyfaithPaymentCase1 extends Controller {
 	public function confirm() {
 		$json = array();
 		
-		if ($this->session->data['payment_method']['code'] == 'skyfaith_payment_case1') {
+		if ($this->session->data['payment_method']['code'] == 'payment_skyfaith_payment_case1') {
 			$this->load->model('checkout/order');
 
 			$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_skyfaith_payment_case1_order_status_id'));
