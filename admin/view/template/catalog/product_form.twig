@@ -1050,7 +1050,7 @@ $('.datetime').datetimepicker({
         //去获取商品列表
         $.ajax({
                 //url: 'index.php?route=catalog/product/getW2eProducts&user_token={{ user_token }}',
-                url: 'http://localhost:5000/api/product/list',
+                url: 'http://localhost:5000/api/product/stocklist',
                 dataType: 'json',
                 method: 'POST',
                 contentType: "application/json",
@@ -1075,9 +1075,15 @@ $('.datetime').datetimepicker({
                                                 <td class="text-left">
                                                     商品编码
                                                 </td>
-                                                <td class="text-center">图片</td>
+                                                <td class="text-left">图片</td>
                                                 <td class="text-left">
                                                     商品名称
+                                                </td>
+                                                <td class="text-left">
+                                                    库存数
+                                                </td>
+                                                <td class="text-left">
+                                                    可销售数
                                                 </td>
                                             </tr>
                                         </thead><tbody>`;
@@ -1089,11 +1095,13 @@ $('.datetime').datetimepicker({
                                     <td>${json.Entities[i].ProductNo}</td>
                                     <td><img src="http://localhost:5000/Content/upload/${json.Entities[i].ProductImage}" width="50" height="50" /></td>
                                     <td>${json.Entities[i].ProductCName}</td>
+                                    <td>${json.Entities[i].Quantity}</td>
+                                    <td>${json.Entities[i].AvailableQuantity}</td>
                                </tr>`;
                         }
                     }else{
                        html+=`<tr>
-                                   <td colspan='4'>没有数据</td>
+                                   <td colspan='4' class='text-center'>没有数据</td>
                               </tr>`;
                     }
 
@@ -1133,6 +1141,7 @@ $('.datetime').datetimepicker({
                                     $("#input-width").val(pro.Width);
                                     $("#input-height").val(pro.Height);
                                     $("#input-weight").val(pro.Weight);
+                                    $("#input-quantity").val(pro.AvailableQuantity);
 
                                     layer.close(index);
                                 }

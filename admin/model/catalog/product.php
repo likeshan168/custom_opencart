@@ -771,23 +771,35 @@ class ModelCatalogProduct extends Model
 	{
 		try
 		{
-			$client = new Client();
-			$client->setDefaultOption('headers', array(
-				'Accept-Encoding' => 'gzip,deflate',
-				'Content-Type' => 'application/json'
-			));
+			//$client = new Client();
+			//$client->setDefaultOption('headers', array(
+			//    'Accept-Encoding' => 'gzip,deflate',
+			//    'Content-Type' => 'application/json'
+			//));
+			//$api=$this->config->get("W2E_PRODUCT");
+			//$response = $client->post($api."UpdateOnlineStatus",[
+			//     'json'=>['ProductNo'=>$productNo,'Online'=>$online, 'OnlineQuantity'=>$onlineQuantity]
+			//    ]);
+			//$body = (string)$response->getBody()->getContents();
+			//$json = json_decode($body,true);
+			//if ($json && $json["Error"])
+			//{
+			//    return false;
+			//}
+			//return true;
+			$requestBody = array('ProductNo'=>$productNo,'Online'=>$online, 'OnlineQuantity'=>$onlineQuantity);
 			$api=$this->config->get("W2E_PRODUCT");
-			$response = $client->post($api."UpdateOnlineStatus",[
-				 'json'=>['ProductNo'=>$productNo,'Online'=>$online, 'OnlineQuantity'=>$onlineQuantity]
-				]);
-			$body = $response->json();
-			//echo $body["Code"], $body["Message"], $body["IsSuccess"] ;
-			return $body["Error"]? false: true;
-		}
-		catch (RequestException $exception)
-		{
-			//echo $exception;
-			return false;
+			$response = \Httpful\Request::post($api."UpdateOnlineStatus")               // Build a PUT request...
+			->sendsJson()                               // tell it we're sending (Content-Type) JSON...
+			//->authenticateWith('username', 'password')  // authenticate with basic auth...
+			->body(json_encode($requestBody))             // attach a body/payload...
+			->send();
+			$json=json_decode($response, true);
+			if ($json && $json["Error"])
+			{
+			    return false;
+			}
+			return true;
 		}
 		catch(Exception $e)
 		{
@@ -807,23 +819,30 @@ class ModelCatalogProduct extends Model
 	{
 		try
 		{
-			$client = new Client();
-			$client->setDefaultOption('headers', array(
-				'Accept-Encoding' => 'gzip,deflate',
-				'Content-Type' => 'application/json'
-			));
+			//$client = new Client();
+			//$client->setDefaultOption('headers', array(
+			//    'Accept-Encoding' => 'gzip,deflate',
+			//    'Content-Type' => 'application/json'
+			//));
+			//$api=$this->config->get("W2E_PRODUCT");
+			//$response = $client->post($api."BatchUpdateOnlineStatus",[
+			//     'json'=>$requestArr
+			//    ]);
+			//$body = $response->json();
+			//return $body["Error"]? false: true;
+
 			$api=$this->config->get("W2E_PRODUCT");
-			$response = $client->post($api."BatchUpdateOnlineStatus",[
-				 'json'=>$requestArr
-				]);
-			$body = $response->json();
-			//echo $body["Code"], $body["Message"], $body["IsSuccess"] ;
-			return $body["Error"]? false: true;
-		}
-		catch (RequestException $exception)
-		{
-			//echo $exception;
-			return false;
+			$response = \Httpful\Request::post($api."BatchUpdateOnlineStatus")               // Build a PUT request...
+			->sendsJson()                               // tell it we're sending (Content-Type) JSON...
+			//->authenticateWith('username', 'password')  // authenticate with basic auth...
+			->body(json_encode($requestArr))             // attach a body/payload...
+			->send();
+			$json=json_decode($response, true);
+			if ($json && $json["Error"])
+			{
+			    return false;
+			}
+			return true;
 		}
 		catch(Exception $e)
 		{

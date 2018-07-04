@@ -2,8 +2,79 @@
 <modification>
   <id>VQMOD CORE FOR My OPENCART</id>
   <version>1.4.x and above</version>
-  <vqmver required="true">2.6.0</vqmver>
+  <vqmver required="true">2.6.1</vqmver>
   <author>sky-faith.com</author>
+
+  <!--自定义一些内容-->
+  <file name="catalog/language/zh-cn/extension/shipping/item.php" error="skip">
+    <operation error="skip" info="change the translations">
+      <search position="replace">按件运费</search>
+      <add>一件代发(实报实收)</add>
+    </operation>
+  </file>
+  <file name="catalog/language/zh-cn/extension/shipping/free.php" error="skip">
+    <operation error="skip" info="change the translations">
+      <search position="replace">免费配送</search>
+      <add>全部发货(配送至指定地点)</add>
+    </operation>
+  </file>
+  <file name="catalog/language/en-gb/extension/shipping/item.php" error="skip">
+    <operation error="skip" info="change the translations">
+      <search position="replace">Per Item</search>
+      <add>Instead of shipping(Real report paid-in)</add>
+    </operation>
+    <operation error="skip" info="change the translations">
+      <search position="replace">Per Item Shipping Rate</search>
+      <add>Per Item Shipping Rate(Instead of shipping)</add>
+    </operation>
+  </file>
+  <file name="catalog/language/en-gb/extension/shipping/free.php" error="skip">
+    <operation error="skip" info="change the translations">
+      <search position="replace">Free Shipping</search>
+      <add>All shipments(Delivery to the specified address)</add>
+    </operation>
+  </file>
+
+  <file name="admin/language/en-gb/extension/shipping/free.php" error="skip">
+    <operation error="skip" info="change the translations">
+      <search position="replace">Free Shipping</search>
+      <add>All shipments(Delivery to the specified address)</add>
+    </operation>
+  </file>
+  <file name="admin/language/en-gb/extension/shipping/item.php" error="skip">
+    <operation error="skip" info="change the translations">
+      <search position="replace">Per Item</search>
+      <add>Instead of shipping(Real report paid-in)</add>
+    </operation>
+  </file>
+  <file name="admin/language/zh-cn/extension/shipping/free.php" error="skip">
+    <operation error="skip" info="change the translations">
+      <search position="replace">Free Shipping</search>
+      <add>All shipments(Delivery to the specified address)</add>
+    </operation>
+  </file>
+  <file name="admin/language/zh-cn/extension/shipping/free.php" error="skip">
+    <operation error="skip" info="change the translations">
+      <search position="replace">免费配送</search>
+      <add>全部发货(配送至指定地点)</add>
+    </operation>
+  </file>
+  <file name="admin/language/zh-cn/extension/shipping/item.php" error="skip">
+    <operation error="skip" info="change the translations">
+      <search position="replace">按件计费</search>
+      <add>一件代发(实报实收)</add>
+    </operation>
+  </file>
+  <file name="catalog/controller/startup/session.php" error="skip">
+    <operation error="skip" info="change session logic">
+      <search position="after">
+        <![CDATA[$this->db->query("DELETE FROM `" . DB_PREFIX . "api_session` WHERE TIMESTAMPADD(HOUR, 1, date_modified) < NOW()");]]>
+      </search>
+      <add>
+        <![CDATA[if (!isset($this->request->get['api_token'])) return;]]>
+      </add>
+    </operation>
+  </file>
 
   <file name="catalog/controller/api/order.php" error="skip">
     <operation error="skip" info="change order logic">
@@ -176,7 +247,7 @@
 				        'accept_language'         => $order_query->rows[$i]['accept_language'],
 				        'date_added'              => $order_query->rows[$i]['date_added'],
 				        'date_modified'           => $order_query->rows[$i]['date_modified'],
-                'products'                => $this->getOrderProducts($order_query->rows[$i]['order_id'])
+                'products'                => $this->getOrderProducts2($order_query->rows[$i]['order_id'])
 			        );
 		        } 
             return $orders;
@@ -184,5 +255,66 @@
         ]]>
       </add>
     </operation>
+
+    <operation error="skip" info="change order logic">
+      <search position="before">
+        <![CDATA[public function getOrderOptions($order_id, $order_product_id) {]]>
+      </search>
+      <add>
+        <![CDATA[
+        public function getOrderProducts2($order_id) {
+		      $query = $this->db->query("SELECT op.*, p.sku FROM " . DB_PREFIX . "order_product op left join ".DB_PREFIX."product p on p.product_id=op.product_id WHERE order_id = '" . (int)$order_id . "'");
+		
+		      return $query->rows;
+	      }
+        ]]>
+      </add>
+    </operation>
   </file>
+
+  <!--<file name="catalog/view/theme/default/template/checkout/checkout/checkout.twig" error="skip">
+
+    <operation error="skip" info="change order logic">
+      <search position="replace" offset="12">
+        <![CDATA[<div class="quick-checkout-wrapper">]]>
+      </search>
+      <add>
+        <![CDATA[
+        <div class="row">
+          <div class="col-md-{{ shipping_required ? '8' : '12' }}">
+            {{ include(helper.template('checkout/checkout/_right_section')) }}
+          </div>
+          {% if shipping_required %}
+          <div class="col-md-4">
+            <div class="left-section-wrapper">
+              {{ shipping_address_section }}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        ]]>
+      </add>
+    </operation>
+  </file>-->
+
+  <file name="catalog/controller/checkout/checkout.php" error="skip">
+
+    <operation error="skip" info="change checkout logic">
+      <search position="replace">
+        <![CDATA[if ($order['payment_code'] == 'cod') {]]>
+      </search>
+      <add>
+        <![CDATA[if ($order['payment_code'] == 'cod' || $order['payment_code'] == 'skyfaith_payment_case1' || $order['payment_code'] == 'skyfaith_payment_case2') {]]>
+      </add>
+    </operation>
+    <operation error="skip" info="change checkout logic">
+      <search position="replace">
+        <![CDATA[if ($order_data['payment_method'] == 'cod') {]]>
+      </search>
+      <add>
+        <![CDATA[if ($order_data['payment_method'] == 'cod' || $order_data['payment_method'] == 'skyfaith_payment_case1' || $order_data['payment_method'] == 'skyfaith_payment_case2') {]]>
+      </add>
+    </operation>
+  </file>
+
 </modification>

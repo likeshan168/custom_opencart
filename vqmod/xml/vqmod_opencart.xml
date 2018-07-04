@@ -16,6 +16,13 @@
     </operation>
   </file>
 
+  <file name="catalog/controller/event/theme.php" error="skip">
+    <operation error="skip" info="Add Twig support">
+      <search position="replace"><![CDATA[include_once DIR_SYSTEM . 'library/template/Twig/Autoloader.php';]]></search>
+      <add><![CDATA[include_once (\VQMod::modCheck(DIR_SYSTEM . 'library/template/Twig/Autoloader.php'));]]></add>
+    </operation>
+  </file>
+
   <file name="system/library/template/Twig/*.php" error="skip">
     <operation error="skip" info="Add Twig support">
       <search position="replace"><![CDATA[dirname(__FILE__).'/../']]></search>
@@ -30,74 +37,4 @@
     </operation>
   </file>
 
-  <!--自定义一些内容-->
-  <file name="catalog/language/zh-cn/extension/shipping/item.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">按件运费</search>
-      <add>按件运费(一件代发)</add>
-    </operation>
-  </file>
-  <file name="catalog/language/zh-cn/extension/shipping/free.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">免费配送</search>
-      <add>免费配送(全部发货)</add>
-    </operation>
-  </file>
-  <file name="catalog/language/en-gb/extension/shipping/item.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">Per Item</search>
-      <add>Per Item(Instead of shipping)</add>
-    </operation>
-    <operation error="skip" info="change the translations">
-      <search position="replace">Per Item Shipping Rate</search>
-      <add>Per Item Shipping Rate(Instead of shipping)</add>
-    </operation>
-  </file>
-  <file name="catalog/language/en-gb/extension/shipping/free.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">Free Shipping</search>
-      <add>Free Shipping(All shipments)</add>
-    </operation>
-  </file>
-
-  <file name="admin/language/en-gb/extension/shipping/free.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">Free Shipping</search>
-      <add>Free Shipping(All shipments)</add>
-    </operation>
-  </file>
-  <file name="admin/language/en-gb/extension/shipping/item.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">Per Item</search>
-      <add>Per Item(Instead of shipping)</add>
-    </operation>
-  </file>
-  <file name="admin/language/zh-cn/extension/shipping/free.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">Free Shipping</search>
-      <add>Free Shipping(All shipments)</add>
-    </operation>
-  </file>
-  <file name="admin/language/zh-cn/extension/shipping/free.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">免费配送</search>
-      <add>免费配送(全部发货)</add>
-    </operation>
-  </file>
-  <file name="admin/language/zh-cn/extension/shipping/item.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">按件计费</search>
-      <add>按件计费(一件代发)</add>
-    </operation>
-  </file>
-  <file name="catalog/controller/startup/session.php" error="skip">
-    <operation error="skip" info="change session logic">
-      <search position="after">
-        <![CDATA[$this->db->query("DELETE FROM `" . DB_PREFIX . "api_session` WHERE TIMESTAMPADD(HOUR, 1, date_modified) < NOW()");]]>
-      </search>
-      <add>
-        <![CDATA[if (!isset($this->request->get['api_token'])) return;]]>
-      </add>
-    </operation>
-  </file>
 </modification>

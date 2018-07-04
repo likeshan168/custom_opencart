@@ -372,11 +372,13 @@
             success: function (json) {
                 layer.close(ii);
                 switcher.bootstrapSwitch('toggleReadonly', false);
+                console.log(json, json["status"]);
                 if (json['status'] !== 1) {
                     switcher.bootstrapSwitch('state', !state, true);
                 }
             },
-            error: function () {
+            error: function (err) {
+                console.log(err,"error");
                 layer.close(ii);
                 switcher.bootstrapSwitch('toggleReadonly', false);
                 switcher.bootstrapSwitch('state', !state, true);
@@ -418,14 +420,10 @@
                 success: function (json) {
                     layer.close(ii);
                     $.each(stateCheckboxes, function (index, value) {
-                        // let stateCheckbox =  $(value).parent().parent().find('input[name="product-status-toggle"]');
                         value.bootstrapSwitch('toggleReadonly', false);
                     });
                     if (json['status'] === 1) {
                         $.each(stateCheckboxes, function (index, value) {
-                            // let target = $(value);
-                            // let stateCheckbox =  target.parent().parent().find('input[name="product-status-toggle"]');
-                            console.log(value.attr('checked') ? 0 : 1);
                             value.bootstrapSwitch('state', value.attr('checked') ? 0 : 1, true);
                             value.attr("checked", !value.attr('checked'));
                         });
@@ -433,8 +431,6 @@
                 },
                 error: function () {
                     $.each(stateCheckboxes, function (index, value) {
-                        // let target = $(value);
-                        // let stateCheckbox = target.parent().parent().find('input[name="product-status-toggle"]');
                         value.bootstrapSwitch('toggleReadonly', false);
                         value.bootstrapSwitch('state', value.attr('checked') ? 0 : 1, true);
                     });
@@ -451,7 +447,7 @@
         //去获取商品列表
         $.ajax({
                 //url: 'index.php?route=catalog/product/getW2eProducts&user_token={{ user_token }}',
-                url: 'http://localhost:5000/api/product/list',
+                url: 'http://localhost:5000/api/product/stocklist',
                 dataType: 'json',
                 method: 'POST',
                 contentType: "application/json",
@@ -480,6 +476,12 @@
                                                 <td class="text-left">
                                                     商品名称
                                                 </td>
+                                                <td class="text-left">
+                                                    库存数
+                                                </td>
+                                                <td class="text-left">
+                                                    可销售数
+                                                </td>
                                             </tr>
                                         </thead><tbody>`;
                     if (json.Entities && json.Entities.length) {
@@ -490,11 +492,13 @@
                                     <td>${json.Entities[i].ProductNo}</td>
                                     <td><img src="http://localhost:5000/Content/upload/${json.Entities[i].ProductImage}" width="50" height="50" /></td>
                                     <td>${json.Entities[i].ProductCName}</td>
+                                    <td>${json.Entities[i].Quantity}</td>
+                                    <td>${json.Entities[i].AvailableQuantity}</td>
                                </tr>`;
                         }
                     }else{
                        html+=`<tr>
-                                   <td colspan='4'>没有数据</td>
+                                   <td colspan='4' class='text-center'>没有数据</td>
                               </tr>`;
                     }
 

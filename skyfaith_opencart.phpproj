@@ -4514,17 +4514,28 @@
     <Compile Include="system\startup.php" />
     <Compile Include="test.php" />
     <Compile Include="vqmod\install\index.php" />
+    <Compile Include="vqmod\install\ugrsr.class.php" />
+    <Compile Include="vqmod\vqcache\vq2-admin_language_en-gb_extension_shipping_free.php" />
+    <Compile Include="vqmod\vqcache\vq2-admin_language_en-gb_extension_shipping_item.php" />
+    <Compile Include="vqmod\vqcache\vq2-admin_language_zh-cn_extension_shipping_free.php" />
+    <Compile Include="vqmod\vqcache\vq2-admin_language_zh-cn_extension_shipping_item.php" />
+    <Compile Include="vqmod\vqcache\vq2-catalog_controller_api_order.php" />
+    <Compile Include="vqmod\vqcache\vq2-catalog_controller_checkout_checkout.php" />
     <Compile Include="vqmod\vqcache\vq2-catalog_controller_event_theme.php" />
-    <Compile Include="vqmod\vqcache\vq2-system_engine_action.php" />
-    <Compile Include="vqmod\vqcache\vq2-system_engine_loader.php" />
-    <Compile Include="vqmod\vqcache\vq2-system_library_config.php" />
-    <Compile Include="vqmod\vqcache\vq2-system_library_language.php" />
+    <Compile Include="vqmod\vqcache\vq2-catalog_controller_startup_session.php" />
+    <Compile Include="vqmod\vqcache\vq2-catalog_language_en-gb_extension_shipping_free.php" />
+    <Compile Include="vqmod\vqcache\vq2-catalog_language_en-gb_extension_shipping_item.php" />
+    <Compile Include="vqmod\vqcache\vq2-catalog_language_zh-cn_extension_shipping_free.php" />
+    <Compile Include="vqmod\vqcache\vq2-catalog_language_zh-cn_extension_shipping_item.php" />
+    <Compile Include="vqmod\vqcache\vq2-catalog_model_checkout_order.php" />
     <Compile Include="vqmod\vqcache\vq2-system_startup.php" />
+    <Compile Include="vqmod\vqcache\vq2-system_storage_modification_system_engine_action.php" />
+    <Compile Include="vqmod\vqcache\vq2-system_storage_modification_system_engine_loader.php" />
+    <Compile Include="vqmod\vqcache\vq2-system_storage_modification_system_library_config.php" />
+    <Compile Include="vqmod\vqcache\vq2-system_storage_modification_system_library_language.php" />
     <Compile Include="vqmod\xml\vqmod_opencart.xml" />
     <Compile Include="vqmod\.gitignore" />
     <Compile Include="vqmod\.htaccess" />
-    <Compile Include="vqmod\checked.cache" />
-    <Compile Include="vqmod\mods.cache" />
     <Compile Include="vqmod\pathReplaces.php" />
     <Compile Include="vqmod\readme.txt" />
     <Compile Include="vqmod\vqmod.php" />
@@ -5313,7 +5324,6 @@
     <Folder Include="system\storage" />
     <Folder Include="system" />
     <Folder Include="vqmod\install" />
-    <Folder Include="vqmod\logs" />
     <Folder Include="vqmod\vqcache" />
     <Folder Include="vqmod\xml" />
     <Folder Include="vqmod" />
@@ -5334,6 +5344,7 @@
     <Content Include="catalog\view\theme\default\template\extension\payment\skyfaith_payment_case2.twig" />
     <Content Include="catalog\view\theme\default\template\extension\payment\skyfaith_payment_case1.twig" />
     <Content Include="composer.json" />
+    <Content Include="vqmod\install\.htaccess" />
     <Content Include="vqmod\xml\vqmod_myopencart.xml" />
   </ItemGroup>
 </Project>
