@@ -15,7 +15,7 @@
   <file name="catalog/language/zh-cn/extension/shipping/free.php" error="skip">
     <operation error="skip" info="change the translations">
       <search position="replace">免费配送</search>
-      <add>全部发货(配送至指定地点)</add>
+      <add>物流发货(配送至指定地点)</add>
     </operation>
   </file>
   <file name="catalog/language/en-gb/extension/shipping/item.php" error="skip">
@@ -55,7 +55,7 @@
   <file name="admin/language/zh-cn/extension/shipping/free.php" error="skip">
     <operation error="skip" info="change the translations">
       <search position="replace">免费配送</search>
-      <add>全部发货(配送至指定地点)</add>
+      <add>物流发货(配送至指定地点)</add>
     </operation>
   </file>
   <file name="admin/language/zh-cn/extension/shipping/item.php" error="skip">
