@@ -34,7 +34,6 @@
       <add>All shipments(Delivery to the specified address)</add>
     </operation>
   </file>
-
   <file name="admin/language/en-gb/extension/shipping/free.php" error="skip">
     <operation error="skip" info="change the translations">
       <search position="replace">Free Shipping</search>
@@ -75,7 +74,6 @@
       </add>
     </operation>
   </file>
-
   <file name="catalog/controller/api/order.php" error="skip">
     <operation error="skip" info="change order logic">
       <search position="before">
@@ -83,7 +81,7 @@
       </search>
       <add>
         <![CDATA[
-        public function list() {
+        public function orderList() {
 		        $this->load->language('api/order');
 
 		        $json = array();
@@ -117,7 +115,6 @@
       </add>
     </operation>
   </file>
-
   <file name="catalog/model/checkout/order.php" error="skip">
     <operation error="skip" info="change order logic">
       <search position="before">
@@ -255,7 +252,6 @@
         ]]>
       </add>
     </operation>
-
     <operation error="skip" info="change order logic">
       <search position="before">
         <![CDATA[public function getOrderOptions($order_id, $order_product_id) {]]>
@@ -270,8 +266,20 @@
         ]]>
       </add>
     </operation>
+    <operation error="skip" info="change order logic">
+      <search position="before">
+        <![CDATA[public function deleteOrder($order_id) {]]>
+      </search>
+      <add>
+        <![CDATA[
+        public function editOrderStatus($order_id, $order_status_id, $comment) {
+              $this->addOrderHistory($order_id, $order_status_id, $comment, true);
+		      $this->db->query("update " . DB_PREFIX . "order set order_status_id='".$order_status_id."', set comment = '".$comment."' where order_id='".$order_id."'");
+	      }
+        ]]>
+      </add>
+    </operation>
   </file>
-
   <!--<file name="catalog/view/theme/default/template/checkout/checkout/checkout.twig" error="skip">
 
     <operation error="skip" info="change order logic">
@@ -296,7 +304,6 @@
       </add>
     </operation>
   </file>-->
-
   <file name="catalog/controller/checkout/checkout.php" error="skip">
 
     <operation error="skip" info="change checkout logic">
@@ -313,6 +320,70 @@
       </search>
       <add>
         <![CDATA[if ($order_data['payment_method'] == 'cod' || $order_data['payment_method'] == 'skyfaith_payment_case1' || $order_data['payment_method'] == 'skyfaith_payment_case2') {]]>
+      </add>
+    </operation>
+  </file>
+  <file name="catalog/controller/api/order.php" error="skip">
+    <operation error="skip" info="change order logic">
+      <search position="before">
+        <![CDATA[public function history() {]]>
+      </search>
+      <add>
+        <![CDATA[
+        public function editOrderStatus() {
+            $this->load->language('api/order');
+            $json = array();
+
+            if (!isset($this->session->data['api_id'])) {
+                $json['error'] = $this->language->get('error_permission');
+            } else {
+                $this->load->model('checkout/order');
+                if (isset($this->request->get['order_id'])) {
+                    $order_id = $this->request->get['order_id'];
+                } else {
+                    $order_id = 0;
+                }
+                $order_info = $this->model_checkout_order->getOrder($order_id);
+                if ($order_info) {
+                    if (isset($this->request->get['order_status_id'])) {
+                        $order_status_id = $this->request->get['order_status_id'];
+                        $comment = '';
+                        if (isset($this->request->get['order_comment'])) {
+                            $comment = $this->request->get['order_comment'];
+                        }
+                        $this->model_checkout_order->editOrderStatus($order_id, $order_status_id, $comment);
+                        $json['success'] = $this->language->get('text_success');
+                    } else {
+                         $json['error'] = $this->language->get('error_no_order_status');
+                    }
+                } else {
+                      $json['error'] = $this->language->get('error_not_found');
+                }
+            }
+            $this->response->addHeader('Content-Type: application/json');
+            $this->response->setOutput(json_encode($json));
+	    }
+        ]]>
+      </add>
+    </operation>
+  </file>
+  <file name="catalog/language/en-gb/api/order.php" error="skip">
+    <operation error="skip" info="change order translation in api">
+      <search position="after">
+        <![CDATA[$_['error_not_found']]]>
+      </search>
+      <add>
+        <![CDATA[$_['error_no_order_status'] = 'Warning: No order status options are available!';]]>
+      </add>
+    </operation>
+  </file>
+  <file name="catalog/language/zh-cn/api/order.php" error="skip">
+    <operation error="skip" info="change order translation in api">
+      <search position="after">
+        <![CDATA[$_['error_not_found']]]>
+      </search>
+      <add>
+        <![CDATA[$_['error_no_order_status'] = '警告：没有提供订单状态！';]]>
       </add>
     </operation>
   </file>
