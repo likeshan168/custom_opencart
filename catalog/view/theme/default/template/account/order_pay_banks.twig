@@ -1,0 +1,119 @@
+{{ header }}
+<div id="account-order" class="container">
+    {{ include(helper.template('_partial/breadcrumb')) }}
+    {% if success %}
+        <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+    {% endif %}
+    {% if error_warning %}
+        <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+    {% endif %}
+    <div class="row">{{ column_left }}
+        {% if column_left and column_right %}
+            {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+            {% set class = 'col-sm-9' %}
+        {% else %}
+            {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">{{ content_top }}
+            <h2>{{ heading_title_bank }}</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <td class="text-left">{{ column_bank_name }}</td>
+                        <td class="text-left">{{ column_account_no }}</td>
+                        <td class="text-right">{{ column_bank_code }}</td>
+                    </thead>
+                    <tbody>
+                    {% for bank in banks %}
+                        <tr>
+                            <td class="text-left">{{ bank.BankChineseName }}</td>
+                            <td class="text-left">{{ bank.AccountNo }}</td>
+                            <td class="text-right">{{ bank.BankCode }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h2>{{ text_voucher }}</h2>
+            </div>
+            <div>
+                <img src="{{ w2e }}/upload/PaymentVoucher/{{ order_id }}.jpg" alt="">
+            </div>
+            <div id="demo" style="min-height: 400px;background: #CF9;">
+                <div id="as">
+                </div>
+            </div>
+            {{ content_bottom }}</div>
+        {{ column_right }}</div>
+</div>
+<script type="text/javascript">
+    let ii;
+    $('#as').diyUpload({
+        url: 'http://localhost:5000/api/order/UploadPaymentVoucher?orderId={{ order_id }}',
+        beforeSend: function () {
+            ii = layer.load();
+        },
+        success: function (data) {
+            if (ii)
+                layer.close(ii);
+            if (data['Error']) {
+                layer.open({
+                    type: 1
+                    , offset: 'auto' //具体配置参考：offset参数项
+                    , content: `<div style="padding: 20px 80px;">${data['Error']['Message']}</div>`
+                    , btn: '确定'
+                    , btnAlign: 'c' //按钮居中
+                    , shade: 0 //不显示遮罩
+                    , yes: function (index) {
+                        layer.close(index);
+                    }
+                });
+            } else {
+                layer.open({
+                    type: 1
+                    , offset: 'auto' //具体配置参考：offset参数项
+                    , content: `<div style="padding: 20px 80px;">上传成功</div>`
+                    , btn: '确定'
+                    , btnAlign: 'c' //按钮居中
+                    , shade: 0 //不显示遮罩
+                    , yes: function (index) {
+                        layer.close(index);
+                    }
+                });
+            }
+        },
+        error: function (err) {
+            if (ii){
+                layer.close(ii);
+            }
+            layer.open({
+                type: 1
+                , offset: 'auto' //具体配置参考：offset参数项
+                , content: `<div style="padding: 20px 80px;">上传失败</div>`
+                , btn: '确定'
+                , btnAlign: 'c' //按钮居中
+                , shade: 0 //不显示遮罩
+                , yes: function (index) {
+                    layer.close(index);
+                }
+            });
+        },
+        buttonText: '{{ text_choose_file }}',
+        chunked: true,
+        // 分片大小
+        chunkSize: 512 * 1024,
+        //最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+        fileNumLimit: 50,
+        fileSizeLimit: 500000 * 1024,
+        fileSingleSizeLimit: 50000 * 1024,
+        accept: {}
+    });
+</script>
+{{ footer }}

@@ -1,86 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modification>
-  <id>VQMOD CORE FOR My OPENCART</id>
-  <version>1.4.x and above</version>
-  <vqmver required="true">2.6.1</vqmver>
-  <author>sky-faith.com</author>
+    <id>VQMOD CORE FOR My OPENCART</id>
+    <version>1.4.x and above</version>
+    <vqmver required="true">2.6.1</vqmver>
+    <author>sky-faith.com</author>
 
-  <!--自定义一些内容-->
-  <file name="catalog/language/zh-cn/extension/shipping/item.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">按件运费</search>
-      <add>一件代发(实报实收)</add>
-    </operation>
-  </file>
-  <file name="catalog/language/zh-cn/extension/shipping/free.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">免费配送</search>
-      <add>物流发货(配送至指定地点)</add>
-    </operation>
-  </file>
-  <file name="catalog/language/en-gb/extension/shipping/item.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">Per Item</search>
-      <add>Instead of shipping(Real report paid-in)</add>
-    </operation>
-    <operation error="skip" info="change the translations">
-      <search position="replace">Per Item Shipping Rate</search>
-      <add>Per Item Shipping Rate(Instead of shipping)</add>
-    </operation>
-  </file>
-  <file name="catalog/language/en-gb/extension/shipping/free.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">Free Shipping</search>
-      <add>All shipments(Delivery to the specified address)</add>
-    </operation>
-  </file>
-  <file name="admin/language/en-gb/extension/shipping/free.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">Free Shipping</search>
-      <add>All shipments(Delivery to the specified address)</add>
-    </operation>
-  </file>
-  <file name="admin/language/en-gb/extension/shipping/item.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">Per Item</search>
-      <add>Instead of shipping(Real report paid-in)</add>
-    </operation>
-  </file>
-  <file name="admin/language/zh-cn/extension/shipping/free.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">Free Shipping</search>
-      <add>All shipments(Delivery to the specified address)</add>
-    </operation>
-  </file>
-  <file name="admin/language/zh-cn/extension/shipping/free.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">免费配送</search>
-      <add>物流发货(配送至指定地点)</add>
-    </operation>
-  </file>
-  <file name="admin/language/zh-cn/extension/shipping/item.php" error="skip">
-    <operation error="skip" info="change the translations">
-      <search position="replace">按件计费</search>
-      <add>一件代发(实报实收)</add>
-    </operation>
-  </file>
-  <file name="catalog/controller/startup/session.php" error="skip">
-    <operation error="skip" info="change session logic">
-      <search position="after">
-        <![CDATA[$this->db->query("DELETE FROM `" . DB_PREFIX . "api_session` WHERE TIMESTAMPADD(HOUR, 1, date_modified) < NOW()");]]>
-      </search>
-      <add>
-        <![CDATA[if (!isset($this->request->get['api_token'])) return;]]>
-      </add>
-    </operation>
-  </file>
-  <file name="catalog/controller/api/order.php" error="skip">
-    <operation error="skip" info="change order logic">
-      <search position="before">
-        <![CDATA[public function history() {]]>
-      </search>
-      <add>
-        <![CDATA[
+    <!--自定义一些内容-->
+    <file name="catalog/language/zh-cn/extension/shipping/item.php" error="skip">
+        <operation error="skip" info="change the translations">
+            <search position="replace">按件运费</search>
+            <add>一件代发(实报实收)</add>
+        </operation>
+    </file>
+    <file name="catalog/language/zh-cn/extension/shipping/free.php" error="skip">
+        <operation error="skip" info="change the translations">
+            <search position="replace">免费配送</search>
+            <add>物流发货(配送至指定地点)</add>
+        </operation>
+    </file>
+    <file name="catalog/language/en-gb/extension/shipping/item.php" error="skip">
+        <operation error="skip" info="change the translations">
+            <search position="replace">Per Item</search>
+            <add>Instead of shipping(Real report paid-in)</add>
+        </operation>
+        <operation error="skip" info="change the translations">
+            <search position="replace">Per Item Shipping Rate</search>
+            <add>Per Item Shipping Rate(Instead of shipping)</add>
+        </operation>
+    </file>
+    <file name="catalog/language/en-gb/extension/shipping/free.php" error="skip">
+        <operation error="skip" info="change the translations">
+            <search position="replace">Free Shipping</search>
+            <add>All shipments(Delivery to the specified address)</add>
+        </operation>
+    </file>
+    <file name="admin/language/en-gb/extension/shipping/free.php" error="skip">
+        <operation error="skip" info="change the translations">
+            <search position="replace">Free Shipping</search>
+            <add>All shipments(Delivery to the specified address)</add>
+        </operation>
+    </file>
+    <file name="admin/language/en-gb/extension/shipping/item.php" error="skip">
+        <operation error="skip" info="change the translations">
+            <search position="replace">Per Item</search>
+            <add>Instead of shipping(Real report paid-in)</add>
+        </operation>
+    </file>
+    <file name="admin/language/zh-cn/extension/shipping/free.php" error="skip">
+        <operation error="skip" info="change the translations">
+            <search position="replace">Free Shipping</search>
+            <add>All shipments(Delivery to the specified address)</add>
+        </operation>
+    </file>
+    <file name="admin/language/zh-cn/extension/shipping/free.php" error="skip">
+        <operation error="skip" info="change the translations">
+            <search position="replace">免费配送</search>
+            <add>物流发货(配送至指定地点)</add>
+        </operation>
+    </file>
+    <file name="admin/language/zh-cn/extension/shipping/item.php" error="skip">
+        <operation error="skip" info="change the translations">
+            <search position="replace">按件计费</search>
+            <add>一件代发(实报实收)</add>
+        </operation>
+    </file>
+    <file name="catalog/controller/startup/session.php" error="skip">
+        <operation error="skip" info="change session logic">
+            <search position="after">
+                <![CDATA[$this->db->query("DELETE FROM `" . DB_PREFIX . "api_session` WHERE TIMESTAMPADD(HOUR, 1, date_modified) < NOW()");]]>
+            </search>
+            <add>
+                <![CDATA[if (!isset($this->request->get['api_token'])) return;]]>
+            </add>
+        </operation>
+    </file>
+    <file name="catalog/controller/api/order.php" error="skip">
+        <operation error="skip" info="change order logic">
+            <search position="before">
+                <![CDATA[public function history() {]]>
+            </search>
+            <add>
+                <![CDATA[
         public function orderList() {
 		        $this->load->language('api/order');
 
@@ -112,16 +112,16 @@
 		        $this->response->setOutput(json_encode($json));
 	        }
         ]]>
-      </add>
-    </operation>
-  </file>
-  <file name="catalog/model/checkout/order.php" error="skip">
-    <operation error="skip" info="change order logic">
-      <search position="before">
-        <![CDATA[public function getOrderProducts($order_id) {]]>
-      </search>
-      <add>
-        <![CDATA[
+            </add>
+        </operation>
+    </file>
+    <file name="catalog/model/checkout/order.php" error="skip">
+        <operation error="skip" info="change order logic">
+            <search position="before">
+                <![CDATA[public function getOrderProducts($order_id) {]]>
+            </search>
+            <add>
+                <![CDATA[
         public function getOrders($order_id) {
 		        $order_query = $this->db->query("SELECT *, (SELECT os.name FROM `" . DB_PREFIX . "order_status` os WHERE os.order_status_id = o.order_status_id AND os.language_id = o.language_id) AS order_status FROM `" . DB_PREFIX . "order` o WHERE o.order_id > '" . (int)$order_id . "' and o.order_status_id>0");
             if (!$order_query->num_rows) return false;
@@ -250,86 +250,86 @@
             return $orders;
 	        }
         ]]>
-      </add>
-    </operation>
-    <operation error="skip" info="change order logic">
-      <search position="before">
-        <![CDATA[public function getOrderOptions($order_id, $order_product_id) {]]>
-      </search>
-      <add>
-        <![CDATA[
+            </add>
+        </operation>
+        <operation error="skip" info="change order logic">
+            <search position="before">
+                <![CDATA[public function getOrderOptions($order_id, $order_product_id) {]]>
+            </search>
+            <add>
+                <![CDATA[
         public function getOrderProducts2($order_id) {
 		      $query = $this->db->query("SELECT op.*, p.sku FROM " . DB_PREFIX . "order_product op left join ".DB_PREFIX."product p on p.product_id=op.product_id WHERE order_id = '" . (int)$order_id . "'");
 		
 		      return $query->rows;
 	      }
         ]]>
-      </add>
-    </operation>
-    <operation error="skip" info="change order logic">
-      <search position="before">
-        <![CDATA[public function deleteOrder($order_id) {]]>
-      </search>
-      <add>
-        <![CDATA[
+            </add>
+        </operation>
+        <operation error="skip" info="change order logic">
+            <search position="before">
+                <![CDATA[public function deleteOrder($order_id) {]]>
+            </search>
+            <add>
+                <![CDATA[
         public function editOrderStatus($order_id, $order_status_id, $comment) {
               $this->addOrderHistory($order_id, $order_status_id, $comment, true);
 		      $this->db->query("update " . DB_PREFIX . "order set order_status_id='".$order_status_id."', set comment = '".$comment."' where order_id='".$order_id."'");
 	      }
         ]]>
-      </add>
-    </operation>
-  </file>
-  <!--<file name="catalog/view/theme/default/template/checkout/checkout/checkout.twig" error="skip">
+            </add>
+        </operation>
+    </file>
+    <!--<file name="catalog/view/theme/default/template/checkout/checkout/checkout.twig" error="skip">
 
-    <operation error="skip" info="change order logic">
-      <search position="replace" offset="12">
-        <![CDATA[<div class="quick-checkout-wrapper">]]>
-      </search>
-      <add>
-        <![CDATA[
-        <div class="row">
-          <div class="col-md-{{ shipping_required ? '8' : '12' }}">
-            {{ include(helper.template('checkout/checkout/_right_section')) }}
-          </div>
-          {% if shipping_required %}
-          <div class="col-md-4">
-            <div class="left-section-wrapper">
-              {{ shipping_address_section }}
+      <operation error="skip" info="change order logic">
+        <search position="replace" offset="12">
+          <![CDATA[<div class="quick-checkout-wrapper">]]>
+        </search>
+        <add>
+          <![CDATA[
+          <div class="row">
+            <div class="col-md-{{ shipping_required ? '8' : '12' }}">
+              {{ include(helper.template('checkout/checkout/_right_section')) }}
             </div>
+            {% if shipping_required %}
+            <div class="col-md-4">
+              <div class="left-section-wrapper">
+                {{ shipping_address_section }}
+              </div>
+            </div>
+            {% endif %}
           </div>
-          {% endif %}
-        </div>
-        ]]>
-      </add>
-    </operation>
-  </file>-->
-  <file name="catalog/controller/checkout/checkout.php" error="skip">
+          ]]>
+        </add>
+      </operation>
+    </file>-->
+    <file name="catalog/controller/checkout/checkout.php" error="skip">
 
-    <operation error="skip" info="change checkout logic">
-      <search position="replace">
-        <![CDATA[if ($order['payment_code'] == 'cod') {]]>
-      </search>
-      <add>
-        <![CDATA[if ($order['payment_code'] == 'cod' || $order['payment_code'] == 'skyfaith_payment_case1' || $order['payment_code'] == 'skyfaith_payment_case2') {]]>
-      </add>
-    </operation>
-    <operation error="skip" info="change checkout logic">
-      <search position="replace">
-        <![CDATA[if ($order_data['payment_method'] == 'cod') {]]>
-      </search>
-      <add>
-        <![CDATA[if ($order_data['payment_method'] == 'cod' || $order_data['payment_method'] == 'skyfaith_payment_case1' || $order_data['payment_method'] == 'skyfaith_payment_case2') {]]>
-      </add>
-    </operation>
-  </file>
-  <file name="catalog/controller/api/order.php" error="skip">
-    <operation error="skip" info="change order logic">
-      <search position="before">
-        <![CDATA[public function history() {]]>
-      </search>
-      <add>
-        <![CDATA[
+        <operation error="skip" info="change checkout logic">
+            <search position="replace">
+                <![CDATA[if ($order['payment_code'] == 'cod') {]]>
+            </search>
+            <add>
+                <![CDATA[if ($order['payment_code'] == 'cod' || $order['payment_code'] == 'skyfaith_payment_case1' || $order['payment_code'] == 'skyfaith_payment_case2') {]]>
+            </add>
+        </operation>
+        <operation error="skip" info="change checkout logic">
+            <search position="replace">
+                <![CDATA[if ($order_data['payment_method'] == 'cod') {]]>
+            </search>
+            <add>
+                <![CDATA[if ($order_data['payment_method'] == 'cod' || $order_data['payment_method'] == 'skyfaith_payment_case1' || $order_data['payment_method'] == 'skyfaith_payment_case2') {]]>
+            </add>
+        </operation>
+    </file>
+    <file name="catalog/controller/api/order.php" error="skip">
+        <operation error="skip" info="change order logic">
+            <search position="before">
+                <![CDATA[public function history() {]]>
+            </search>
+            <add>
+                <![CDATA[
         public function editOrderStatus() {
             $this->load->language('api/order');
             $json = array();
@@ -364,28 +364,250 @@
             $this->response->setOutput(json_encode($json));
 	    }
         ]]>
-      </add>
-    </operation>
-  </file>
-  <file name="catalog/language/en-gb/api/order.php" error="skip">
-    <operation error="skip" info="change order translation in api">
-      <search position="after">
-        <![CDATA[$_['error_not_found']]]>
-      </search>
-      <add>
-        <![CDATA[$_['error_no_order_status'] = 'Warning: No order status options are available!';]]>
-      </add>
-    </operation>
-  </file>
-  <file name="catalog/language/zh-cn/api/order.php" error="skip">
-    <operation error="skip" info="change order translation in api">
-      <search position="after">
-        <![CDATA[$_['error_not_found']]]>
-      </search>
-      <add>
-        <![CDATA[$_['error_no_order_status'] = '警告：没有提供订单状态！';]]>
-      </add>
-    </operation>
-  </file>
+            </add>
+        </operation>
+    </file>
+    <file name="catalog/language/en-gb/api/order.php" error="skip">
+        <operation error="skip" info="change order translation in api">
+            <search position="after">
+                <![CDATA[$_['error_not_found']]]>
+            </search>
+            <add>
+                <![CDATA[$_['error_no_order_status'] = 'Warning: No order status options are available!';]]>
+            </add>
+        </operation>
+    </file>
+    <file name="catalog/language/zh-cn/api/order.php" error="skip">
+        <operation error="skip" info="change order translation in api">
+            <search position="after">
+                <![CDATA[$_['error_not_found']]]>
+            </search>
+            <add>
+                <![CDATA[$_['error_no_order_status'] = '警告：没有提供订单状态！';]]>
+            </add>
+        </operation>
+    </file>
+    <file name="catalog/language/zh-cn/zh-cn.php" error="skip">
+        <operation error="skip" info="add some translations">
+            <search position="after">
+                <![CDATA[$_['button_view']]]>
+            </search>
+            <add>
+                <![CDATA[$_['button_pay'] = '付款';]]>
+            </add>
+        </operation>
+    </file>
+    <file name="catalog/language/en-gb/en-gb.php" error="skip">
+        <operation error="skip" info="add some translations">
+            <search position="after">
+                <![CDATA[$_['button_view']]]>
+            </search>
+            <add>
+                <![CDATA[$_['button_pay'] = 'pay';]]>
+            </add>
+        </operation>
+    </file>
+    <file name="catalog/language/en-gb/account/order.php" error="skip">
+        <operation error="skip" info="add some translations">
+            <search position="after">
+                <![CDATA[$_['column_comment']]]>
+            </search>
+            <add>
+                <![CDATA[
+        $_['column_bank_name'] = 'Name of Bank';
+        $_['column_account_no'] = 'Account No';
+        $_['column_bank_code'] = 'Bank Code';
+        $_['heading_title_bank'] = 'Bank Account';
+        $_['text_bank'] = 'Bank Account Info';
+        $_['text_voucher'] = 'Payment Voucher';
+        $_['text_choose_file'] = 'Choose File';
+        ]]>
+            </add>
+        </operation>
+    </file>
+    <file name="catalog/language/zh-cn/account/order.php" error="skip">
+        <operation error="skip" info="add some translations">
+            <search position="after">
+                <![CDATA[$_['column_comment']]]>
+            </search>
+            <add>
+                <![CDATA[
+        $_['column_bank_name'] = '银行名称';
+        $_['column_account_no'] = '账号';
+        $_['column_bank_code'] = '银行代码';
+        $_['heading_title_bank'] = '银行账号';
+        $_['heading_title_bank'] = '银行账号';
+        $_['text_bank'] = '账号信息';
+        $_['text_voucher'] = '付款凭证';
+        $_['text_choose_file'] = '选择文件';
+        ]]>
+            </add>
+        </operation>
+    </file>
+    <file name="system/config/admin.php" error="skip">
+        <operation error="skip" info="add some translations">
+            <search position="before">
+                <![CDATA[// Action Events]]>
+            </search>
+            <add>
+                <![CDATA[
+                //w2e Login Api
+                $_["W2E_LOGIN"] = "http://www.myopencart.com:5000/api/account/login/";
+                //w2e Product Api
+                $_["W2E_PRODUCT"] = "http://www.myopencart.com:5000/api/product/";
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file name="system/config/catalog.php" error="skip">
+        <operation error="skip" info="add some translations">
+            <search position="before">
+                <![CDATA[// Action Events]]>
+            </search>
+            <add>
+                <![CDATA[
+                //get banks
+                $_["W2E"] = "http://localhost:5000";
+                $_["W2E_BANKS"] = "http://localhost:5000/api/companybankaccount/GetBanckAccounts";
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file name="catalog/controller/account/order.php" error="skip">
+        <operation error="skip" info="add some translations">
+            <search position="after">
+                <![CDATA['view'       => $this->url->link('account/order/info', 'order_id=' . $result['order_id']),]]>
+            </search>
+            <add>
+                <![CDATA[
+                'pay'       =>in_array($result['order_status_id'],$this->config->get('config_processing_status'))? $this->url->link('account/order/banks', 'order_id=' . $result['order_id']):'',
+                ]]>
+            </add>
+        </operation>
+        <operation error="skip" info="add payment action">
+            <search position="before">
+                <![CDATA[public function reorder() {]]>
+            </search>
+            <add>
+                <![CDATA[
+        public function banks() {
+            $this->document->addStyle('catalog/view/javascript/diyUpload/css/webuploader.css');
+            $this->document->addStyle('catalog/view/javascript/diyUpload/css/diyUpload.css');
+            $this->document->addScript('catalog/view/javascript/diyUpload/js/webuploader.html5only.min.js');
+            $this->document->addScript('catalog/view/javascript/diyUpload/js/diyUpload.js');
 
+            $this->load->language('account/order');
+            if (isset($this->request->get['order_id'])) {
+                $order_id = $this->request->get['order_id'];
+            } else {
+                $order_id = 0;
+            }
+            $data['order_id'] = $order_id;
+            $data['w2e'] = $this->config->get['W2E'];
+            if (!$this->customer->isLogged()) {
+                $this->session->data['redirect'] = $this->url->link('account/order/info', 'order_id=' . $order_id);
+                $this->response->redirect($this->url->link('account/login'));
+            }
+
+            $this->load->model('account/order');
+            $order_info = $this->model_account_order->getOrder($order_id);
+              $this->document->setTitle($this->language->get('text_order'));
+              $url = '';
+
+            if (isset($this->request->get['page'])) {
+                $url .= '&page=' . $this->request->get['page'];
+            }
+              $data['breadcrumbs'] = array();
+
+              $data['breadcrumbs'][] = array(
+                  'text' => $this->language->get('text_home'),
+                  'href' => $this->url->link('common/home')
+              );
+
+              $data['breadcrumbs'][] = array(
+                  'text' => $this->language->get('text_account'),
+                  'href' => $this->url->link('account/account')
+              );
+
+              $data['breadcrumbs'][] = array(
+                  'text' => $this->language->get('heading_title'),
+                  'href' => $this->url->link('account/order', $url)
+              );
+
+              $data['breadcrumbs'][] = array(
+                  'text' => $this->language->get('text_bank'),
+                  'href' => $this->url->link('account/order/banks', 'order_id=' . $this->request->get['order_id'] . $url)
+              );
+
+              if (isset($this->session->data['error'])) {
+                  $data['error_warning'] = $this->session->data['error'];
+
+                  unset($this->session->data['error']);
+              } else {
+                  $data['error_warning'] = '';
+              }
+
+              if (isset($this->session->data['success'])) {
+                  $data['success'] = $this->session->data['success'];
+
+                  unset($this->session->data['success']);
+              } else {
+                  $data['success'] = '';
+              }
+
+              // banks
+              $data['banks'] = array();
+              $banks = $this->getBanks();
+
+              if(!$banks){
+                $data['error_warning'] = $banks['Error'];
+              }else{
+                $data['banks'] = $banks['Entities'];
+              }
+              $data['column_left'] = $this->load->controller('common/column_left');
+              $data['column_right'] = $this->load->controller('common/column_right');
+              $data['content_top'] = $this->load->controller('common/content_top');
+              $data['content_bottom'] = $this->load->controller('common/content_bottom');
+              $data['footer'] = $this->load->controller('common/footer');
+              $data['header'] = $this->load->controller('common/header');
+              $this->response->setOutput($this->load->view('account/order_pay_banks', $data));
+        }
+        public function getBanks(){
+          try
+          {
+              $requestBody = array('Take'=>100);
+              $api=$this->config->get("W2E_BANKS");
+              $response = \Httpful\Request::post($api)               // Build a PUT request...
+              ->sendsJson()                               // tell it we're sending (Content-Type) JSON...
+              ->body(json_encode($requestBody))             // attach a body/payload...
+              ->send();
+              $json=json_decode($response, true);
+              if ($json && $json["Error"])
+              {
+                  return false;
+              }
+              return $json;
+          }
+          catch(Exception $e)
+          {
+              //echo $e;
+              return false;
+          }
+        }
+        ]]>
+            </add>
+        </operation>
+    </file>
+    <file name="catalog/model/account/order.php" error="skip">
+        <operation error="skip" info="add some translations">
+            <search position="replace">
+                <![CDATA[$query = $this->db->query("SELECT o.order_id, o.fullname, os.name as status, o.date_added, o.total, o.currency_code, o.currency_value FROM `" . DB_PREFIX . "order` o LEFT JOIN " . DB_PREFIX . "order_status os ON (o.order_status_id = os.order_status_id) WHERE o.customer_id = '" . (int)$this->customer->getId() . "' AND o.order_status_id > '0' AND o.store_id = '" . (int)$this->config->get('config_store_id') . "' AND os.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY o.order_id DESC LIMIT " . (int)$start . "," . (int)$limit);]]>
+            </search>
+            <add>
+                <![CDATA[
+                $query = $this->db->query("SELECT o.order_id, o.fullname, o.order_status_id,os.name as status, o.date_added, o.total, o.currency_code, o.currency_value FROM `" . DB_PREFIX . "order` o LEFT JOIN " . DB_PREFIX . "order_status os ON (o.order_status_id = os.order_status_id) WHERE o.customer_id = '" . (int)$this->customer->getId() . "' AND o.order_status_id > '0' AND o.store_id = '" . (int)$this->config->get('config_store_id') . "' AND os.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY o.order_id DESC LIMIT " . (int)$start . "," . (int)$limit);
+                ]]>
+            </add>
+        </operation>
+    </file>
 </modification>

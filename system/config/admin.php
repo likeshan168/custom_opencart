@@ -54,7 +54,3 @@ $_['action_event'] = array(
 	//)
 );
 
-//w2e Login Api
-$_["W2E_LOGIN"] = "http://www.myopencart.com:5000/api/account/login/";
-//w2e Product Api
-$_["W2E_PRODUCT"] = "http://www.myopencart.com:5000/api/product/";

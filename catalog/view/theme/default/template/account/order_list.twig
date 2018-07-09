@@ -34,7 +34,12 @@
               <td class="text-left">{{ order.status }}</td>
               <td class="text-right">{{ order.total }}</td>
               <td class="text-left">{{ order.date_added }}</td>
-              <td class="text-center"><a href="{{ order.view }}" title="{{ button_view }}">[{{ button_view }}]</a></td>
+              <td class="text-center">
+                <a href="{{ order.view }}" title="{{ button_view }}">[{{ button_view }}]</a>
+                  {% if order.pay %}
+                      <a href="{{ order.pay }}" title="{{ button_pay }}">[{{ button_pay }}]</a>
+                  {% endif %}
+              </td>
             </tr>
             {% endfor %}
           </tbody>
